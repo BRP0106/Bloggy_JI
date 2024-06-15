@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+{% extends 'index.html' %}
+
+{% load static %}
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/EditBlog.css' %}">
+<script src="{% static 'js/TinyMCE.js' %}"></script>
+<div class="container" style="margin-top:120px;">
+   <form action="{% url 'EditBlog' post.b_id %}" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+       <div class="row mb-3">
+           <div class="col-sm-12">
+               <label for="title" class="form-label">Blog Title</label>
+               <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" required>
+           </div>
+       </div>
+       <div class="row mb-3">
+           <div class="col-sm-12">
+               <label for="id_content" class="form-label">Blog Content</label>
+               <textarea class="form-control" id="id_content" name="content">{{ post.content }}</textarea>
+           </div>
+       </div>
+       <div class="row mb-3">
+           <div class="col-sm-12">
+               <label for="thumbnail" class="form-label">Choose Your Blog Thumbnail</label>
+               <input class="form-control" type="file" id="thumbnail" name="thumbnail">
+           </div>
+       </div>
+       <div class="row mb-3">
+           <div class="col-sm-12">
+               <button type="submit" class="btn">Update</button>
+           </div>
+       </div>
+   </form>
+</div>
+
+{% endblock %}

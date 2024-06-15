@@ -1,0 +1,156 @@
+.navbar
+{
+    background-color: #fff;
+    height: 90px;
+    margin: 5px;
+    padding: 0.5rem;
+    border-bottom: 4px solid purple;
+}
+.login-button
+{
+    background-color: #800080;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.login-button:hover
+{
+   background-color: #8b008b;
+   color:white;
+   text-decoration: none;
+}
+
+.registration-button
+{
+    background-color: #800080;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.registration-button:hover
+{
+   background-color: #8b008b;
+   color:white;
+   text-decoration: none;
+}
+
+.logout-button
+{
+    background-color: #800080;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.logout-button:hover
+{
+   background-color: #8b008b;
+   color:white;
+   text-decoration: none;
+}
+.navbar-toggler
+{
+    border: none;
+    font-size: 1.25rem;
+}
+.navbar-toggler:focus, btn-Close:focus
+{
+    box-shadow: none;
+    outline: none;
+}
+.nav-link
+{
+    color: purple;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link::before
+{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 3px;
+    background-color: purple;
+    color:purple;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+}
+.nav-link:hover::before, .nav-link.active::before
+{
+    width: 100%;
+    visibility: visible;
+    color: purple;
+}
+.img
+{
+    border: 1px solid purple;
+    padding: 2px;
+    border-radius:20px;
+}
+.offcanvas-header
+{
+    border-bottom: 4px solid purple;
+}
+.my
+{
+    margin-top: 15px;
+}
+.btn {
+    background-color: purple; /* button background color */
+    border-color: purple; /* button border color */
+    color: white; /* button text color */
+}
+
+.btn:hover {
+    background-color: white; /* hover background color */
+    border-color: purple; /* hover border color */
+    color: purple; /* hover text color */
+}
+.img-fluid1
+{
+    width: 70%;
+    height: auto;
+    margin:13px;
+}
+
+footer
+{
+    background-color: white;
+    color: white;
+    text-align: center;
+    border-top: 4px solid purple;
+    margin: 5px;
+    padding: 0.5rem;
+}
+footer p
+{
+    margin: 5px 0;
+    color: purple;
+}
+.icon
+{
+    width: 30px;
+    height:30px;
+    background-color: purple;
+    padding:5px;
+    border-radius: 50%;
+    transition: filter 0.3s ease;
+
+}
+.icon:hover
+{
+    background-color: #a30dad;
+    border: 2px solid #a30dad;
+}

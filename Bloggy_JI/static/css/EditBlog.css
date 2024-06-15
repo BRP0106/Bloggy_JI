@@ -1,0 +1,28 @@
+.btn
+{
+    color: white;
+    border-color: purple;
+    background-color: purple;
+    width: 200px;
+}
+.btn:hover
+{
+    color: purple;
+    border-color: purple;
+}
+
+.form-label
+{
+    color: purple;
+}
+.form-control
+{
+    border-color: purple;
+}
+.container
+{
+    overflow-y: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

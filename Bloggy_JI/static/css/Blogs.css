@@ -1,0 +1,32 @@
+/* Add these styles to your Category.css file */
+
+.card {
+    border: 1px solid purple; /* Set border color to purple */
+    border-radius: 10px; /* Optional: Add border radius for rounded corners */
+}
+
+.purple-bg {
+    background-color: #f0f0f0; /* Set background color to light purple */
+}
+
+.div-border p, .div-border a, .div-border h3 {
+    color: purple; /* Set text color to purple */
+}
+
+.btn-purple {
+    background-color: purple; /* Set button background color to purple */
+    border-color: purple; /* Set button border color to purple */
+}
+
+.btn-purple:hover {
+    background-color: white; /* Change button background color to white on hover */
+    color: purple; /* Change button text color to purple on hover */
+}
+
+.container
+{
+    overflow-y: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

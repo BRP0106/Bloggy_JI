@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+
+
+{% block contactactive %}active{% endblock %}
+
+{% block body %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/Contact.css' %}">
+<div class="contact-us">
+    <div class="container-fluid" style="margin-top: 150px; min-height:540px;">
+        <div class="row" style="margin-left: 10px;">
+            <div class="col-lg-6 mb-4">
+
+                <div class="card bg1" style="width: 49rem; height: 30rem;">
+                    <div class="card-body">
+                        <center>
+                            <h2 class="card-title">Other Information</h2>
+                        </center>
+                        <p class="card-text">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="{% static 'img/locations.png' %}" class="img-fluid rounded-circle image">
+                            </div>
+                            <div class="col-10 my-2">
+                                <h3>Our Address</h3>
+                                <p>Jwels Circle, Bhavnagar</p>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-2">
+                                <img src="{% static 'img/emails.png' %}" class="img-fluid rounded-circle image">
+                            </div>
+                            <div class="col-10 my-2">
+                                <h3>Our E-mail</h3>
+                                <p>bloggyji@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-2">
+                                <img src="{% static 'img/contacts.png' %}" class="img-fluid rounded-circle image">
+                            </div>
+                            <div class="col-10 my-2">
+                                <h3>Our Contact</h3>
+                                <p>+91 9313070741</p>
+                            </div>
+                        </div>
+                        </p>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+
+                <div class="card bg1" style="width: 49rem; height: 30rem;">
+                    <div class="card-body">
+                        <center>
+                            <h2 class="card-title">Contact Us</h2>
+                        </center>
+                        <p class="card-text">
+                        <form action="{% url 'Contacts' %}" method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <input type="text" id="name" name="name" placeholder="Enter Your Name" required
+                                    class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" id="email" name="email" placeholder="Enter Your E-mail" required
+                                    class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <input type="tel" id="phone" name="phone" placeholder="Enter Your Phone Number"
+                                    class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <textarea id="issue" name="issue" placeholder="Enter Your Issue" rows="6" cols="20"
+                                    class="form-control" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="send-button">Send</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br><br>
+{% endblock body %}
