@@ -1,0 +1,41 @@
+/* Category.css */
+
+.card {
+    background-color: white;
+    border: 1px solid purple; /* border color */
+}
+
+.card-title {
+    color: purple; /* title color */
+}
+
+.card-text {
+    color: black; /* text color */
+}
+
+.btn {
+    background-color: purple; /* button background color */
+    border-color: purple; /* button border color */
+    color: white; /* button text color */
+}
+
+.btn:hover {
+    background-color: white; /* hover background color */
+    border-color: purple; /* hover border color */
+    color: purple; /* hover text color */
+}
+.form-control
+{
+    border: 2px solid purple;
+}
+.search-result
+{
+    color: red;
+}
+.container
+{
+    overflow-y: auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

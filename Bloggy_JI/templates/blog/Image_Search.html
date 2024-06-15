@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block imagesactive %}active{% endblock %}
+
+{% load static %}
+{% block search %}
+    <li class="nav-item ml-2 my">
+         <form method="get" action="{% url 'Image_Search' %}" class="d-flex" role="search">
+             <input class="form-control me-2" type="search" name="search" id="search" placeholder="Search" aria-label="Search">
+             <button class="btn" type="submit">Search</button>
+         </form>
+     </li>
+{% endblock %}
+
+{% block body %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Add_Post.css' %}">
+
+<div class="container" style="margin-top:100px">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+        {% for img in Images %}
+        <div class="col mb-4">
+            <div class="card image" style="width: 19rem;">
+                <img src="{{ img.image_file.url }}" height="350px" width="100%" class="card-img-top" alt="Upload Photo">
+                <div class="card-body">
+                    <h5 class="card-title">{{ img.title }}</h5>
+                    <p>{{ img.desc }}</p>
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <img src="{{ img.user.profile.photo.url }}"
+                                height="50px" width="50px" class="rounded-circle img">
+                        </div>
+                        <div class="col-6 mt-3">
+                            <a href="{% url 'UserProfile' img.user.id %}">&nbsp;<b><u>{{ img.user }}</u></b></a>
+                            <br>
+                            <p>&nbsp;{{ img.date }}</p>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <a href="{% url 'FullSizeImage' img.i_id %}" role="button" class="btn" style="width:100px;margin-left:-20px;">See</a>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col-4">
+                            <img src="{% static 'img/like.png' %}" height="20px" width="20px">({{ img.likes.count }})&nbsp;&nbsp;
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'img/views.png' %}" height="20px" width="20px">({{ img.views }})&nbsp;&nbsp;
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'img/comment.png' %}" height="20px" width="20px">({{ img.num_comments }})
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <h3 class="search-result"><i><u>{{ query }}</u></i>  is Not Found ...</h3>
+
+        {% endfor %}
+    </div>
+</div>
+{% if user.is_authenticated %}
+    <div class="add">
+        <!-- Button trigger modal -->
+        <a type="button" class="addbutton" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img src="{% static 'img/add_images.png' %}" class="img-fluid">
+        </a>
+    </div>
+    {% endif %}
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Image</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'Add_Images' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="title" class="form-label">Image Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Enter Your Image Title" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="desc" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="desc" name="desc" placeholder="Enter Your Image Description" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="ifile" class="form-label">Choose Your Image File</label>
+                                    <input class="form-control" type="file" id="ifile" name="ifile" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock body %}

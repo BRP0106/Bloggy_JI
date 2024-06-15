@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block homeactive %}active{% endblock %}
+{% block body %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <div class="container" style="min-height:730px;">
+        <center>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="h1">Welcome To Bloggy - JI</h1>
+                </div>
+                <div class="col-12">
+                    <h6 class="h6">This platform is designed to make creating and sharing your thoughts online easy</h6>
+                </div>
+                <div class="col-12">
+                    <a href="{% url 'BlogHome' %}" role="button" class="btn">Got To Blog</a>
+                </div>
+            </div>
+        </center>
+    </div>
+{% endblock body %}

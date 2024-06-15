@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="{% static 'css/Registrations_Form1.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+<div class="container" onclick="onclick">
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="center">
+        <form action="{% url 'Registrations' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-6">
+                    <input type="text" name="FName" placeholder="First Name" required>
+                </div>
+                <div class="col-sm-6">
+                    <input class="lname" type="text" name="LName" placeholder="Last Name" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <input type="file" id="photo" name="photo" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <input type="email" name="email" placeholder="E-mail" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <input type="text" name="bio" placeholder="Bio" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <input type="password" name="pass" placeholder="Password" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <input type="password" name="cpass" placeholder="Confirm Password" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <button type="submit" class="button1">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src='https://codepen.io/banik/pen/ReNNrO/3f837b2f0085b5125112fc455941ea94.js'></script>
+{% endblock %}
+{% block footer %}
+    <!-- Empty block to override footer -->
+{% endblock footer %}
+

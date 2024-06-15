@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block smartaiactive %}active{% endblock %}
+
+
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/FindContent.css' %}">
+<div class="container">
+    <div id="content-container" class="content-container">
+        {% for c in contents %}
+        <div class="message">
+            {% if request.user.is_authenticated %}
+                <img src="{{ request.user.profile.photo.url }}" class="user-image"><div class="user-message">{{ c.input }}</div>
+            {% else %}
+                <img src="{% static 'img/profile.jpeg' %}" class="user-image"><div class="user-message">{{ c.input }}</div>
+            {% endif %}
+            <img src="{% static 'img/chatbot.webp' %}" class="ai-image img-fluid"><div class="ai-message">{{ c.content }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="content-form">
+        <form action="{% url 'generate_content' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group rounded">
+                <input type="search" class="form-control" name="search" placeholder="Find Content ..." aria-label="Search"
+                    aria-describedby="search-addon" autofocus required />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    // JavaScript to automatically scroll to the bottom of the message container
+    var messageContainer = document.getElementById('content-container');
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+</script>
+{% endblock %}

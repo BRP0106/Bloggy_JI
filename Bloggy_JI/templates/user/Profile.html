@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+{% block body %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Add_Post.css' %}">
+
+<div class="container" style="margin-top: 100px">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            {% if profile == None %}
+                <img src="{% static 'img/profile.jpeg' %}" height="300px" width="300px" class="rounded-circle  nav-item mx-2 img">
+            {% else %}
+                <img src="{{ profile.photo.url }}" height="300px" width="300px" class="rounded-circle  nav-item mx-2 img">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h1><u><b>{{ user.username }}</b></u></h1>
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <h4>{{ user.email }}</h4>
+            <h4>{{ profile.bio }}</h4>
+            <br><br>
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#EditProfile">Edit Profile</button>
+            <div class="modal fade" id="EditProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Profile</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'EditProfile' user.id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="Username" class="form-label">Username : </label>
+                                    <input type="text" class="form-control" id="Username" name="Username" value="{{ user.username }}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="FirstName" class="form-label">First Name : </label>
+                                    <input type="text" class="form-control" id="FirstName" name="FirstName" value="{{ user.first_name }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="LastName" class="form-label">Last Name : </label>
+                                    <input class="form-control" type="text" id="LastName" name="LastName"  value="{{ user.last_name }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="Email" class="form-label">Email : </label>
+                                    <input class="form-control" type="text" id="Email" name="Email"  value="{{ user.email }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="Bio" class="form-label">Bio : </label>
+                                    <input class="form-control" type="text" id="Bio" name="Bio"  value="{{ profile.bio }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="ProfilePhoto" class="form-label">Profile Photo : </label>
+                                    <input class="form-control" type="file" id="ProfilePhoto" name="ProfilePhoto">
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container" style="margin-top: 120px; margin-bottom: 100px;">
+    <h1>Blogs : </h1>
+
+
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card  p-3"> <!-- Added border and padding -->
+                <div class=" row align-items-center">
+                    <div class="col-2 col-lg-1">
+                        <img src="{{ profile.photo.url }}" height="50px" width="50px" class="rounded-circle img">
+                    </div>
+                    <div class="col-5 col-lg-5 mt-3">
+                        <a href="#"><b><u>{{ post.user }}</u></b></a>
+                        <br>
+                        <p>{{ post.date }}</p>
+                    </div>
+                    <div class="col-5 col-lg-5 text-lg-right">
+                        <img src="{% static 'img/like.png' %}" height="20px" width="20px">({{ post.likes }})&nbsp;&nbsp;
+                        <img src="{% static 'img/views.png' %}" height="20px" width="20px">({{ post.views }})&nbsp;&nbsp;
+                        <img src="{% static 'img/comment.png' %}" height="20px" width="20px">({{ b_comments.count }})
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <h3 class="card-title">{{ post.title }}</h3>
+                        <p>{{ post.content|truncatechars:50|safe }}</p>
+                        <a href="{% url 'BlogPosts' post.b_id %}" class="btn btn-danger my-4">Continue Reading</a>
+                        <a href="{% url 'DeleteBlog' post.b_id %}" role="button" class="btn">Delete</a>
+                        <a href="{% url 'EditBlogForm' post.b_id %}" class="btn" role="button">Edit Blog</a>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <img src="{{ post.thumbnail.url }}" class="img-fluid"> <!-- Added responsiveness for thumbnail image -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+         {% empty %}
+
+        <h3>Blogs Are Not Uploaded</h3>
+
+    {% endfor %}
+    </div>
+
+</div>
+
+
+<div class="container" style="margin-top:120px">
+    <h1>Videos : </h1>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 align-items-center">
+        {% for v in video %}
+        <div class="col mb-4">
+            <div class="card" style="width: 19rem;">
+                <div class="align-items-center">
+                    <video src="{{ v.video_file.url }}" height="300px" width="250px" class="mx-3"
+                         muted="muted" controls></video>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ v.title }}</h5>
+                    <p>{{ v.desc }}</p>
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <img src="{{ profile.photo.url }}"
+                                height="50px" width="50px" class="rounded-circle img">
+                        </div>
+                        <div class="col-7 mt-3">
+                            <a href="#">&nbsp;<b><u>{{ v.user }}</u></b></a>
+                            <br>
+                            <p>&nbsp;{{ v.date }}</p>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <a href="{% url 'FullSizeVideo' v.v_id %}" role="button" class="btn btn-outline-danger" style="width:100px; margin-left:-50px;">Play</a>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-4">
+                            <img src="{% static 'img/like.png' %}" height="20px" width="20px">({{ v.likes }})&nbsp;&nbsp;
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'img/views.png' %}" height="20px" width="20px">({{ v.views }})&nbsp;&nbsp;
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'img/comment.png' %}" height="20px" width="20px">({{ v_comments.count }})
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                         <div class="col-6">
+                            <a href="{% url 'DeleteVideo' v.v_id %}" role="button" class="btn" style="width:120px;">Delete</a>
+                         </div>
+                        <div class="col-6">
+                            <button class="btn " data-bs-toggle="modal" data-bs-target="#EditVideo">Edit Video</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="EditVideo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel1">Upload Video</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'EditVideo' v.v_id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="vtitle" class="form-label">Video Title</label>
+                                    <input type="text" class="form-control" id="vtitle" name="vtitle" value="{{ v.title }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="vdesc" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="vdesc" name="vdesc" value="{{ v.desc }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="vfile" class="form-label">Choose Your Video File</label>
+                                    <input class="form-control" type="file" id="vfile" name="vfile">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+            <h3>Videos Are Not Uploaded</h3>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+    <div class="container" style="margin-top:100px">
+        <h1>Images : </h1>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
+        {% for img in image %}
+        <div class="col mb-4">
+            <div class="card image" style="width: 19rem;">
+                <img src="{{ img.image_file.url }}" height="350px" width="100%" class="card-img-top" alt="Upload Photo">
+                <div class="card-body">
+                    <h5 class="card-title">{{ img.title }}</h5>
+                    <p>{{ img.desc }}</p>
+                    <div class="row align-items-center">
+                        <div class="col-2">
+                            <img src="{{ profile.photo.url }}" height="50px" width="50px" class="rounded-circle img">
+                        </div>
+                        <div class="col-6 mt-3">
+                            <a href="#">&nbsp;<b><u>{{ img.user }}</u></b></a>
+                            <br>
+                            <p>&nbsp;{{ img.date }}</p>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <a href="{% url 'FullSizeImage' img.i_id %}" role="button" class="btn btn-outline-danger" style="width:100px;margin-left:-20px;">View</a>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col-4">
+                            <img src="{% static 'img/like.png' %}" height="20px" width="20px">({{ img.likes }})&nbsp;&nbsp;
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'img/views.png' %}" height="20px" width="20px">({{ img.views }})&nbsp;&nbsp;
+                        </div>
+                        <div class="col-4">
+                            <img src="{% static 'img/comment.png' %}" height="20px" width="20px">({{ i_comments.count }})
+                        </div>
+
+                    </div>
+                    <div class="row mt-4">
+                         <div class="col-6">
+
+                            <a href="{% url 'DeleteImage' img.i_id %}" role="button" class="btn" style="width:120px;">Delete</a>
+                         </div>
+                        <div class="col-6">
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#EditImage">Edit Image</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="EditImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel2">Upload Image</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'EditImage' img.i_id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="ititle" class="form-label">Image Title</label>
+                                    <input type="text" class="form-control" id="ititle" name="ititle" value="{{ img.title }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="idesc" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="idesc" name="idesc" value="{{ img.desc }}" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <label for="ifile" class="form-label">Choose Your Image File</label>
+                                    <input class="form-control" type="file" id="ifile" name="ifile">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+            <h3>Images Are Not Uploaded</h3>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}
